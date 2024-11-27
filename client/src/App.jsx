@@ -5,6 +5,8 @@ import Products from "./Products/Products";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import "./App.scss";
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core';
 
 const Layout = () => {
     return(
@@ -39,9 +41,12 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div>
-        <RouterProvider router={router} />
-    </div>
+    <MantineProvider>
+        <div>
+            <RouterProvider router={router} />
+        </div>
+    </MantineProvider>
+    
   );
 }
 

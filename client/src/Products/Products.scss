@@ -1,0 +1,26 @@
+.products {
+    padding: 30px 50px;
+    display: flex;
+
+    .left {
+        flex: 1;
+
+        .filterItem {
+            margin-bottom: 30px;
+
+            h2 {
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+
+            .inputItem {
+                margin-bottom: 10px;
+                
+            }
+        }
+    }
+
+    .right {
+        flex: 3;
+    }
+}

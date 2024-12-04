@@ -44,9 +44,31 @@
     "type": {
       "type": "enumeration",
       "enum": [
-        "bestseller",
+        "bestsellers",
         "normal",
         "new"
+      ]
+    },
+    "img1": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "img2": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
       ]
     }
   }

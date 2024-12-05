@@ -22,7 +22,7 @@ function useFetch(url) {
                 const response = await makeRequest.get(url);
                 setData(response.data.data);
             } catch(err) {
-                setError(true);
+                setError(err);
             }
             setLoading(false);
         };

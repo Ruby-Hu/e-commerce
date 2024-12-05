@@ -21,16 +21,16 @@ const Navbar = () => {
                 </div>
                 <div className="center">
                     <div className="item">
-                        <Link className="link" to="/products/1">Necklaces</Link>
+                        <Link className="link" to="/products/necklaces">Necklaces</Link>
                     </div>
                     <div className="item">
-                        <Link className="link" to="/products/2">Rings</Link>
+                        <Link className="link" to="/products/rings">Rings</Link>
                     </div>
                     <div className="item">
-                        <Link className="link" to="/products/3">Bracelets & Anklets</Link>
+                        <Link className="link" to="/products/bracelets-and-anklets">Bracelets & Anklets</Link>
                     </div>
                     <div className="item">
-                        <Link className="link" to="/products/4">Earrings</Link>
+                        <Link className="link" to="/products/earrings">Earrings</Link>
                     </div>
                 </div>
                 <div className="right">

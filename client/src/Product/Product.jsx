@@ -10,10 +10,6 @@ function Product() {
     const [selectedImg, setSelectedImg] =useState(0);
     const [quantity, setQuantity] =useState(1);
 
-    const images = [
-        "https://spencediamonds.com/assets/7581-A.jpg",
-        "https://cdn-media.glamira.com/media/product/newgeneration/view/1/sku/daffney1-n/diamond/diamond-Brillant_AAA/stone2/diamond-Brillant_AAA/stone3/diamond-Brillant_AAA/alloycolour/yellow.jpg"
-    ]
 
     return(
         <div className="product">

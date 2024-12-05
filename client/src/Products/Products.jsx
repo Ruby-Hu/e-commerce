@@ -6,13 +6,11 @@ import { useState } from "react";
 import useFetch from "../hooks/useFetch";
 
 const Products = () => {
-    const catID = parseInt(useParams().id);
     const[maxPrice, setMaxPrice] = useState(1000);
     const[sort,setSort] = useState(null);
-    console.log(catID);
-
-    const{data,loading,error} = useFetch(`/products?filters[Categories][id][$eq]=${catID}`);
-
+    const { slug } = useParams();
+    const { data, loading, error } = useFetch(`/products?populate=*&[filters][category][slug][$eq]=${slug}`);
+    
     return(
         <div className="products">
             <div className="left">
@@ -38,7 +36,7 @@ const Products = () => {
                 </div>
             </div>
             <div className="right">
-                <List catID={catID} maxPrice={maxPrice} sort={sort}/>
+                <List slug={slug} maxPrice={maxPrice} sort={sort}/>
             </div>
         </div>
         

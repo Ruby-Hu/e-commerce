@@ -3,15 +3,14 @@ import "./Card.scss";
 import {Link} from "react-router-dom";
 
 function Card({item}) {
+    console.log(item);
     return(
         <>
-            {/* console said item.slug is undefined */}
-            <Link className="link" to={`/product/${item.id}`}></Link>
+            <Link className="link" to={`/product/${item.documentId}`}></Link>
             <div className="card">
                 <div className="image">
                     {item.new_product && <span>New</span>}
                     <img src={import.meta.env.VITE_APP_UPLOAD_URL + item.img1?.url} alt="" className="mainImg" />
-                    
                     <img src={import.meta.env.VITE_APP_UPLOAD_URL + item.img2?.url} alt="" className="secondImg" />
                 </div>
                 <h2>{item.title}</h2>

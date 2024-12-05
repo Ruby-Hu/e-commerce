@@ -4,60 +4,68 @@ import { useState } from "react";
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import { useParams } from "react-router-dom";
+import useFetch from "../hooks/useFetch";
 
 
 function Product() {
-    const [selectedImg, setSelectedImg] =useState(0);
+    const { documentId } = useParams();
+    const [selectedImg, setSelectedImg] =useState("img1");
     const [quantity, setQuantity] =useState(1);
-
+    const uploadURL = import.meta.env.VITE_APP_UPLOAD_URL;
+    const {data, loading, error} = useFetch(`/products/${documentId}?populate=*`);
 
     return(
-        <div className="product">
-            <div className="left">
-                <div className="images">
-                    <img src={images[0]} alt="" onClick={e=>setSelectedImg(0)}/>
-                    <img src={images[1]} alt="" onClick={e=>setSelectedImg(1)}/>
+        <>
+        {loading ? "loading" :
+            <div className="product">
+                <div className="left">
+                    <div className="images">
+                        <img src={uploadURL + data?.img1?.url} alt="" onClick={e=>setSelectedImg("img1")}/>
+                        <img src={uploadURL + data?.img2?.url} alt="" onClick={e=>setSelectedImg("img2")}/>
+                    </div>
+                    <div className="mainImg">
+                        <img src={uploadURL + data?.[selectedImg]?.url} alt="" />
+                    </div>
                 </div>
-                <div className="mainImg">
-                    <img src={images[selectedImg]} alt="" />
+                <div className="right">
+                    <h1>{data.title}</h1>
+                    <span className="price">${data.price}</span>
+                    <p>{data.description}</p>
+                    <div className="quantity">
+                        <button onClick={() => setQuantity((prev) => prev === 1 ? 1: prev - 1)}>-</button>
+                        {quantity}
+                        <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
+                    </div>
+                    
+                    <div className="btn-group">
+                        <button className="add">
+                            <AddShoppingCartOutlinedIcon/> ADD TO CART
+                        </button>
+                        <button className="wish">
+                            <FavoriteBorderIcon/>
+                        </button>
+                    </div>
+                    <div className="details">
+                        <span>
+                            Description
+                            <KeyboardArrowDownIcon className="down"/>
+                        </span>
+                        <hr/>
+                        <span>
+                            Materials
+                            <KeyboardArrowDownIcon className="down"/>
+                        </span>
+                        <hr/>
+                        <span>
+                            Care
+                            <KeyboardArrowDownIcon className="down"/>
+                        </span>
+                    </div>
                 </div>
             </div>
-            <div className="right">
-                <h1>title</h1>
-                <span className="price">$999</span>
-                <p>Come buy my beautiful things!</p>
-                <div className="quantity">
-                    <button onClick={() => setQuantity((prev) => prev === 1 ? 1: prev - 1)}>-</button>
-                    {quantity}
-                    <button onClick={() => setQuantity((prev) => prev + 1)}>+</button>
-                </div>
-                
-                <div className="btn-group">
-                    <button className="add">
-                        <AddShoppingCartOutlinedIcon/> ADD TO CART
-                    </button>
-                    <button className="wish">
-                        <FavoriteBorderIcon/>
-                    </button>
-                </div>
-                <div className="details">
-                    <span>
-                        Description
-                        <KeyboardArrowDownIcon className="down"/>
-                    </span>
-                    <hr/>
-                    <span>
-                        Materials
-                        <KeyboardArrowDownIcon className="down"/>
-                    </span>
-                    <hr/>
-                    <span>
-                        Care
-                        <KeyboardArrowDownIcon className="down"/>
-                    </span>
-                </div>
-            </div>
-        </div>
+        }
+        </>
     )
 }
 

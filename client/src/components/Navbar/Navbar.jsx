@@ -8,8 +8,10 @@ import { Link } from "react-router-dom";
 import "./Navbar.scss";
 import { useState } from "react";
 import Cart from "../Cart/Cart";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+    const products = useSelector(state=>state.cart.products);
     const [open,setOpen] = useState(false);
 
 
@@ -47,7 +49,7 @@ const Navbar = () => {
                         <FavoriteBorderIcon/>
                         <div className="cartIcon" onClick={()=>setOpen(!open)}>
                             <ShoppingCartOutlinedIcon/>
-                            <span>0</span>
+                            <span>{products.reduce((total, product) => total + product.quantity, 0)}</span>
                         </div>
                     </div>
                 </div>

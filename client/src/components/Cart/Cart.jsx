@@ -1,45 +1,38 @@
 import React from "react";
 import "./Cart.scss";
 import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
+import { useDispatch, useSelector } from "react-redux";
+import { removeFromCart, resetCart } from "../../redux/cartReducer";
 
 function Cart() {
-    const data = [
-        {
-            id: 1,
-            img: "https://simpleanddainty.com/cdn/shop/files/daintysatchainnecklacegfnew_1400x.jpg?v=1700248201",
-            title: "Necklace",
-            price: 15
+    const products = useSelector(state=>state.cart.products);
+    const dispatch = useDispatch();
 
-        },
-        {
-            id: 2,
-            img: "https://spencediamonds.com/assets/7581-A.jpg",
-            img2: "https://cdn-media.glamira.com/media/product/newgeneration/view/1/sku/daffney1-n/diamond/diamond-Brillant_AAA/stone2/diamond-Brillant_AAA/stone3/diamond-Brillant_AAA/alloycolour/yellow.jpg",
-            title: "Ring",
-            isNew: true,
-            price: 20
-        },
-    ];
+    function totalPrice() {
+        let total = 0;
+        products.forEach(item => (total += item.quantity * item.price));
+        return total.toFixed(2);
+    }
 
     return(
         <div className="cart">
             <h1>Shopping Cart</h1>
-            {data?.map(item=>(
+            {products?.map(item=>(
                 <div className="item">
-                    <img src={item.img} alt="" />
+                    <img src={import.meta.env.VITE_APP_UPLOAD_URL + item.img1} alt="" />
                     <div className="detail">
                         <h1>{item.title}</h1>
-                        <p>1 X ${item.price}</p>
+                        <p>{item.quantity} X ${item.price}</p>
                     </div>
-                    <ClearOutlinedIcon className="del"/>
+                    <ClearOutlinedIcon className="del" onClick={()=>dispatch(removeFromCart(item.id))}/>
                 </div>
             ))}
             <div className="total">
                 <span>SUBTOTAL</span>
-                <span>$999</span>
+                <span>${totalPrice()}</span>
             </div>
             <button>CHEKOUT</button>
-            <span className="clear">Clear Cart</span>
+            <span className="clear" onClick={()=>dispatch(resetCart())}>Clear Cart</span>
         </div>
     );
 }

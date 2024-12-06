@@ -6,12 +6,14 @@ import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutl
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { useParams } from "react-router-dom";
 import useFetch from "../hooks/useFetch";
-
+import { useDispatch } from "react-redux";
+import { addToCart } from "../redux/cartReducer";
 
 function Product() {
     const { documentId } = useParams();
     const [selectedImg, setSelectedImg] =useState("img1");
     const [quantity, setQuantity] =useState(1);
+    const dispatch = useDispatch()
     const uploadURL = import.meta.env.VITE_APP_UPLOAD_URL;
     const {data, loading, error} = useFetch(`/products/${documentId}?populate=*`);
 
@@ -39,7 +41,13 @@ function Product() {
                     </div>
                     
                     <div className="btn-group">
-                        <button className="add">
+                        <button className="add" onClick={()=>dispatch(addToCart({
+                            id: data.documentId,
+                            title: data.title,
+                            img: data.img1.url,
+                            price: data.price,
+                            quantity
+                        }))}>
                             <AddShoppingCartOutlinedIcon/> ADD TO CART
                         </button>
                         <button className="wish">
